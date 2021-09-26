@@ -31,13 +31,13 @@
 
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top">
-    <div class="container d-flex align-items-center justify-content- bg-success">
+    <div class="container d-flex align-items-center justify-content-between">
 
       <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>
       <!-- Uncomment below if you prefer to use text as a logo -->
-      <h1 class="logo justify-content-left ml-0 d-block bg-dark"><a href="/">Neighborhood</a></h1>
+      <h1 class="logo justify-content-left ml-0 d-block mr-5 pr-5"><a href="/">Neighborhood</a></h1>
 
-      <nav id="navbar" class="navbar align-items-right justify-content-right bg-light mr-0">
+      <nav id="navbar" class="navbar">
         <ul>
           {% if user.is_authenticated %} 
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>

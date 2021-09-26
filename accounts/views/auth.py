@@ -9,9 +9,10 @@ from django.contrib.auth.hashers import make_password
 
 # Create your views here.
 def index(request):
-    # projects=Projects.objects.all().order_by("-date_posted")
-    # context={"projects":projects}
     return render(request,'index.html')
+
+def dashboard(request):
+    return render(request,'dashboard.html')
 
 """ USER REGISTRATION VIEW """  
 def register(request):   
@@ -62,7 +63,7 @@ def signIn(request):
         if user is not None:
             login(request,user )
             messages.add_message(request, messages.SUCCESS, 'Logged in successfully')
-            return redirect(signIn)
+            return redirect(dashboard)
  
         else:
             messages.add_message(request, messages.ERROR, 'Invalid Credentials!')
