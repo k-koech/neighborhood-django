@@ -9,7 +9,7 @@
     <div class="row pt-5">
         <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                <img class="rounded-circle mt-5" width="150px" src="{{user.profile_photo.url}}">
+                <img class="rounded-circle mt-5" style="background-color: rgb(214, 214, 214);" width="150px" height="150px" src="{{user.profile_photo.url}}">
                 <span class="font-weight-bold mt-4">{{user.name}}</span>
                 <span class="text-black-50">{{user.email}}</span><span> </span>
                 <h6 class='mt-4 font-weight-bold '>Neighborhood</h6>
@@ -65,14 +65,21 @@
         </div>
         <div class="col-md-4">
             <div class="p-3 py-5">
+            <form action="profile/neighborhood" method="POST">
+                {% csrf_token %}
                 <div class="d-flex justify-content-between align-items-center experience"><span>Edit Neighborhood</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
                 <div class="col-md-12"><label class="labels">Neighborhood</label>
-                    <input type="text" class="form-control" placeholder="Loation" value="">
+                    <select class="form-control" required name="neighborhood" placeholder>
+                        <option value="">Select neighborhood</option>
+                        {% for neighborhood in neighborhoods %}
+                        <option value="{{neighborhood.id}}">{{neighborhood.name}}</option>
+                        {% endfor %}
+                    </select>
                 </div> <br>
-                <div class="col-md-12">
-                    <label class="labels">Additional Details</label>
-                    <input type="text" class="form-control" placeholder="additional details" value="">
+                <div class="mt-2 text-center">
+                    <button class="btn btn-outline-primary rounded-0 px-5 " type="submit">Save</button>
                 </div>
+            </form>
             </div>
         </div>
     </div>
@@ -80,48 +87,4 @@
 </div>
 </div>      
        
-{% endblock %} <form class="mt-0" method="post">
-            <div class="messages">
-                {% for message in messages %}
-                  {% if message.tags == "error" %}
-                    <div  class="alert alert-danger">{{ message }}</div>
-                  {% else %}
-                    <div  class="alert alert-{{ message.tags }}">{{ message }}</div>
-                  {% endif %}
-                {% endfor %}
-              </div>
-            {% csrf_token %}
-            <h2 class="text-center"><strong>Create</strong> an account.</h2>
-            <div class="form-group mt-3">
-                <input class="form-control" type="email" name="email" placeholder="Email">
-            </div>
-
-            <div class="form-group mt-3">
-                <input class="form-control" type="text" name="name" placeholder="Name">
-            </div>
-
-            <div class="form-group mt-3">
-                <input class="form-control" type="text" name="id_number" placeholder="ID number">
-            </div>
-
-            <div class="form-group">
-            <select class="form-control" required name="neighborhood" placeholder>
-                <option value="">Select</option>
-                {% for neighborhood in neighborhoods %}
-                <option value="{{neighborhood.id}}">{{neighborhood.name}}</option>
-                {% endfor %}
-            </select>
-            </div>
-          
-            <div class="form-group mt-3">
-                <input class="form-control" type="password" name="password" placeholder="Password">
-            </div>
-            <div class="form-group mt-3">
-                <input class="form-control" type="password" name="password-repeat" placeholder="Password (repeat)">
-            </div>
-            <div class="form-group mt-3 bg-dark float-right" >
-                <button style="width: 100%;" class="btn btn-success d-block rounded-0 btn-block mr-auto mt-2" type="submit">Sign Up</button>
-            </div>
-            <a class="already mt-2 ml-auto" href="/login">You already have an account? Login here.</a>
-        </form>
-  
+{% endblock %}

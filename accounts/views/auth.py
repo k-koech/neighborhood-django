@@ -85,7 +85,7 @@ def profile(request):
         user=Users.objects.get(id=request.user.id)
 
         user.name=request.POST.get('name')
-        user.profile_photo=request.FILES['profile-photo']
+        user.profile_photo=request.FILES['profile_photo']
         user.phone=request.POST.get('phone_number')
         
         user.save()
@@ -94,4 +94,17 @@ def profile(request):
         return redirect(profile)
      
     else:
-        return render(request, "profile.html")
+        neighborhoods=Neighborhood.objects.all()
+        return render(request, "profile.html",{"neighborhoods":neighborhoods})
+
+
+def update_neighborhood(request):
+    """Neighborhood"""
+    if request.method=="POST":
+        user=Users.objects.get(id=request.user.id)
+        user.neighborhood=Neighborhood.objects.get(id=request.POST.get('neighborhood'))
+
+        user.save()
+
+        messages.add_message(request, messages.SUCCESS, 'Neighborhood  Updated')
+        return redirect(profile)
