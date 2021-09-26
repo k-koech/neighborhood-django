@@ -78,9 +78,9 @@ class Business(models.Model):
     user=models.ForeignKey("Users",on_delete=models.CASCADE)
 
 class Health(models.Model):
-    Contact = models.CharField(max_length =200)
+    contact = models.CharField(max_length =200)
     neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE)
  
-class  Police(models.Model):
-    Contact = models.CharField(max_length =200)
+class Police(models.Model):
+    contact = models.CharField(max_length =200)
     neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE)
