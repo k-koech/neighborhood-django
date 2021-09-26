@@ -20,7 +20,17 @@
     width: 65px;
     margin-right: 16px;
   }
-  
+
+.article-image
+{
+    align-items: top;
+    overflow: hidden !important;
+}
+.article-image img
+{
+    width: 100%;
+    height: auto;
+}
   .article-metadata {
     padding-bottom: 1px;
     margin-bottom: 4px;

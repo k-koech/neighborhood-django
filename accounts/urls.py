@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from .views.auth import dashboard, index, profile, register,signIn, signOut,update_neighborhood
 from .views.departments import departments
-from .views.post import add_post
+from .views.post import add_post, post
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
@@ -18,7 +18,8 @@ urlpatterns = [
 
     path('departments', departments, name='departments'),
     path('add_post', add_post, name='add_post'),
-    # path('sites/<id>', project, name='project'),
+
+    path('post/<id>', post, name='post'),
     #  path('search', search, name='search'),
     # path('project/<id>', project, name='project'),
     # path('404', fouroffour_not_found, name='404'),

@@ -23,3 +23,7 @@ def add_post(request):
     else:
         return render(request,'add_post.html')
 
+def post(request, id):
+    post = Post.objects.get(id=id)
+    return render(request,'post.html', {"post":post})
+
