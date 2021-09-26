@@ -36,10 +36,10 @@
 
         {% for post in posts %}
         <article class="media content-section mb-4">
-        <img class="rounded-circle article-img" src="{{post.image.url}}">
+        <img class="rounded-circle article-img" src="{{post.user.profile_photo_url}}">
           <div class="media-body ">
             <div class="row bordered bg-light">
-              <div class="col-sm-4 article-image p-0" >
+              <div class="col-sm-4 article-image p-0">
                 <img class="article-images" src="{{post.image.url}}">
               </div>
               <div class="col-sm-8 ">
