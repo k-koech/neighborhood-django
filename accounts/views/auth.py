@@ -1,6 +1,6 @@
 from django.http.response import JsonResponse
 from django.shortcuts import render, redirect
-from ..models import Users
+from ..models import Neighborhood, Users
 from django.contrib.auth import authenticate,login,logout,login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -16,39 +16,40 @@ def index(request):
 """ USER REGISTRATION VIEW """  
 def register(request):   
     if request.method=="POST":
-        username=request.POST.get('username')
+        id_number=request.POST.get('id_number')
         email=request.POST.get('email')
-        phone=request.POST.get('phone')
-        password=request.POST.get('password')
-        confirm_password=request.POST.get('confirm_password')
+        name=request.POST.get('name')
 
-        print(username)
-        print(email)
-        print(phone)
-        print(password+" pass")
-        print(confirm_password+" c-pass")
-        username_exist=Users.objects.filter(username=username).count()
+        neighborhood=Neighborhood.objects.get(id=request.POST.get('neighborhood'))
+
+        password=request.POST.get('password')
+        confirm_password=request.POST.get('password-repeat')
+
+        id_numbers=Users.objects.filter(id_number=id_number).count()
         email_exist=Users.objects.filter(email=email).count()
 
-        if username_exist>0:
-            return JsonResponse({"msg":"Username exist.", "error":"username"})
+        if id_numbers>0:
+            messages.add_message(request, messages.ERROR, 'Username exist!')
+            return redirect(register)
 
         elif email_exist>0:
-            return JsonResponse({"msg":"Email exist", "error":"email"})
+            messages.add_message(request, messages.ERROR, 'Email exist!')
+            return redirect(register)
+
         else:
             if password!=confirm_password:
-                print(password+"xxx")
-                print(confirm_password)
-                return JsonResponse({"msg":"Password doesn't match", "error":"password_match" })
+                messages.add_message(request, messages.ERROR, 'Username exist!')
+                return redirect(register)
             else:
-                user = Users(username=username, email=email,phone_number=phone, password=make_password(password))
+                user = Users(name=name, email=email,id_number=id_number,neighborhood=neighborhood, password=make_password(password))
                 user.save()
 
-                user = Users.objects.get(username=username)
-                return JsonResponse({"msg":"Registered successfully", "success":"success"})
+                messages.add_message(request, messages.SUCCESS, 'Registereed successfully!')
+                return redirect(signIn)
      
     else:
-        pass
+        neighborhoods=Neighborhood.objects.all()
+        return render(request, "register.html", {"neighborhoods":neighborhoods})
 
 """ LOGIN VIEW """
 def signIn(request):
@@ -56,17 +57,19 @@ def signIn(request):
         email=request.POST.get('email')
         password=request.POST.get('password')
         user= authenticate(email=email, password=password)
-
+        print(email)
+        print(password)
         if user is not None:
             login(request,user )
-            return JsonResponse({"msg":"Login succcess", "success":"success"})
+            messages.add_message(request, messages.SUCCESS, 'Logged in successfully')
+            return redirect(signIn)
  
         else:
-            return JsonResponse({"msg":"Invalid Credentials", "error":"credentials"})
+            messages.add_message(request, messages.ERROR, 'Invalid Credentials!')
+            return redirect(signIn)
 
      else:
-        return JsonResponse({"msg":"Invalid Credentials", "error":"credentials"})
-
+        return render(request, "login.html")
 
 """ LOGOUT VIEW """
 def signOut(request):

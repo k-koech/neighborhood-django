@@ -33,7 +33,7 @@ class MyAccountManager(BaseUserManager):
         return user
         
 class Users(AbstractBaseUser):
-    name = models.CharField( max_length=200, unique=True)  
+    name = models.CharField( max_length=200)  
     email = models.CharField( max_length=100, unique=True)
     id_number = models.IntegerField()
     phone_number = models.CharField(max_length = 15,blank =True)
@@ -46,7 +46,7 @@ class Users(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     password_reset = models.CharField( max_length=50, default="e5viu3snjorndvd")    
-    password = models.CharField( max_length=100)
+    password = models.CharField(max_length=100)
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = [ 'username']

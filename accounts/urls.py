@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.urls import path
 from .views.auth import index, register,signIn, signOut
 # from .views.projects import add_project, fouroffour_not_found,profile, profile_photo
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 
 urlpatterns = [
     path('', index, name='index'),
@@ -21,3 +23,4 @@ urlpatterns = [
     # path('project/delete/<id>', delete_project, name='delete_project'),
    
 ]
+urlpatterns += staticfiles_urlpatterns()
