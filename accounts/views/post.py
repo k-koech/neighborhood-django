@@ -13,10 +13,8 @@ def add_post(request):
         title=request.POST.get('title')
         content=request.POST.get('content')
         image=request.FILES.get('image')
-        neighborhood=Neighborhood.objects.get(id=request.POST.get('neighborhood'))
 
-
-        user = Post(title=title, image=image,content=content,neighborhood=request.user.neighborhood.name, user=request.user)
+        user = Post(title=title, image=image,content=content,neighborhood=request.user.neighborhood, user=request.user)
         user.save()
 
         messages.add_message(request, messages.SUCCESS, 'Posted successfully!')
