@@ -78,3 +78,40 @@ def signOut(request):
     logout(request)
     # messages.add_message(request, messages.SUCCESS, 'Logout successfully!')
     return redirect(index)
+
+def profile(request):   
+    """PROFILE """
+    if request.method=="POST":
+        id_number=request.POST.get('id_number')
+        email=request.POST.get('email')
+        name=request.POST.get('name')
+
+        neighborhood=Neighborhood.objects.get(id=request.POST.get('neighborhood'))
+
+        password=request.POST.get('password')
+        confirm_password=request.POST.get('password-repeat')
+
+        id_numbers=Users.objects.filter(id_number=id_number).count()
+        email_exist=Users.objects.filter(email=email).count()
+
+        if id_numbers>0:
+            messages.add_message(request, messages.ERROR, 'Username exist!')
+            return redirect(register)
+
+        elif email_exist>0:
+            messages.add_message(request, messages.ERROR, 'Email exist!')
+            return redirect(register)
+
+        else:
+            if password!=confirm_password:
+                messages.add_message(request, messages.ERROR, 'Username exist!')
+                return redirect(register)
+            else:
+                user = Users(name=name, email=email,id_number=id_number,neighborhood=neighborhood, password=make_password(password))
+                user.save()
+
+                messages.add_message(request, messages.SUCCESS, 'Registereed successfully!')
+                return redirect(signIn)
+     
+    else:
+        return render(request, "profile.html")

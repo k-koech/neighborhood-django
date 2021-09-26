@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .views.auth import index, register,signIn, signOut
+from .views.auth import dashboard, index, profile, register,signIn, signOut
 # from .views.projects import add_project, fouroffour_not_found,profile, profile_photo
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
@@ -10,8 +10,9 @@ urlpatterns = [
     path('register', register, name='register'),
     path('login', signIn, name='login'),
     path('signOut', signOut, name='signOut'),
-
-    # path('profile', profile, name='profile'),
+ 
+    path('dashboard', dashboard, name='dashboard'),
+    path('profile', profile, name='profile'),
     # path('profile_photo', profile_photo, name='profile_photo'),
     # path('add_project', add_project, name='add_project'),
     # path('sites/<id>', project, name='project'),
