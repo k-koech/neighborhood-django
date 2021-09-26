@@ -62,6 +62,23 @@ class Users(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
+    @classmethod
+    def delete_user(cls,id):
+        delete_user = cls.objects.get(id=id)
+        delete_user.delete()
+        return delete_user
+    
+    @classmethod
+    def update_user(cls,id,profile_photo, phone_number,neighborhood, name):
+        user=cls.objects.get(id=id)
+
+        user.profile_photo=profile_photo
+        user.phone_number=phone_number
+        user.neighborhood=neighborhood
+        user.name=name
+        return user.save()
+
+
 
 class Post(models.Model):
     '''
@@ -87,6 +104,21 @@ class Business(models.Model):
     business_email=models.CharField(max_length =200)
     neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE)
     user=models.ForeignKey("Users",on_delete=models.CASCADE)
+
+    def create_neigborhood(cls):
+        pass
+
+    def delete_neigborhood(cls):
+        pass
+
+    def find_neigborhood(neigborhood_id):
+        pass
+
+    def update_neighborhood():
+        pass
+
+    def update_occupants(cls):
+        pass
 
 class Health(models.Model):
     contact = models.CharField(max_length =200)
