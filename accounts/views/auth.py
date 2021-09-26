@@ -1,6 +1,6 @@
 from django.http.response import JsonResponse
 from django.shortcuts import render, redirect
-from ..models import Neighborhood, Users,Post
+from ..models import Business, Neighborhood, Users,Post
 from django.contrib.auth import authenticate,login,logout,login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -9,8 +9,9 @@ from django.contrib.auth.hashers import make_password
 
 # Create your views here.
 def index(request):
+    businesses= Business.objects.filter(neighborhood__id=request.user.neighborhood.id)
     posts= Post.objects.filter(neighborhood__id=request.user.neighborhood.id)
-    return render(request,'index.html',{"posts":posts})
+    return render(request,'index.html',{"posts":posts, "businesses":businesses})
 
 def dashboard(request):
     """dashboard view"""
