@@ -34,10 +34,11 @@ class MyAccountManager(BaseUserManager):
         
 class Users(AbstractBaseUser):
     name = models.CharField( max_length=200)  
+    username = models.CharField( max_length=200, blank=True)  
     email = models.CharField( max_length=100, unique=True)
-    id_number = models.IntegerField()
+    id_number = models.IntegerField(null=True)
     phone_number = models.CharField(max_length = 15,blank =True)
-    neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE)
+    neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE, null=True)
     profile_photo = CloudinaryField('image', default='image/upload/v1631717620/default_uomrne.jpg') 
     date_joined = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
     last_login = models.DateTimeField(default=dt.datetime.now)
