@@ -413,7 +413,8 @@ section {
   font-size: 14px;
 }
 .about .video-box {
-  background: url("../img/about.jpg") center center no-repeat;
+  background-color: aqua;
+  background: url("/accounts/static/images/addpost.png") center center no-repeat;
   background-size: cover;
   min-height: 500px;
 }

@@ -63,6 +63,17 @@ class Users(AbstractBaseUser):
         return True
 
 
+class Post(models.Model):
+    '''
+     Post class to define post Objects
+    '''
+    title = models.CharField(max_length =200)
+    date_posted = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
+    content= models.TextField()
+    image = CloudinaryField('image') 
+    user=models.ForeignKey("Users",on_delete=models.CASCADE)
+    neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE)
+
 
 class Neighborhood(models.Model):
     name = models.CharField(max_length =200)

@@ -9,41 +9,46 @@
   <div class="container">
     <div class="row mt-5">
       <div class="col-md-8">
-        <div class="well">
-          <div class="media">
-            <a class="pull-left" href="#">
-            <img class="media-object" src="http://placekitten.com/150/150">
-          </a>
-          <div class="media-body">
-            <h4 class="media-heading">Receta 1</h4>
-              <p class="text-right">By Francisco</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
-    Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
-    dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
-    Aliquam in felis sit amet augue.</p>
-              <ul class="list-inline list-unstyled">
-            <li><span><i class="glyphicon glyphicon-calendar"></i> 2 days, 8 hours </span></li>
-                <li>|</li>
-                <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
-                <li>|</li>
-                <li>
-                   <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                </li>
-                <li>|</li>
-                <li>
-                <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
-                  <span><i class="fa fa-facebook-square"></i></span>
-                  <span><i class="fa fa-twitter-square"></i></span>
-                  <span><i class="fa fa-google-plus-square"></i></span>
-                </li>
-          </ul>
-           </div>
-        </div>
-      </div>
+       
+        <article class="media content-section row">
+          <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_images/' +  post.author.image_file) }}">
+            <div class="media-body">
+              <div class="article-metadata row">
+                <div class="col-sm-6 mt-2">
+                  <a class="mr-2" href="#">{{ post.author.username }}</a>
+                  <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+                </div>
+                <div class="col-sm-6 text-right">
+                  {% if post.author == current_user %}
+                        <a class="btn  btn-outline-secondary btn-sm mt-1 mb-1" href="/post/update/{{post.id}}">Update</a>
+                        <button class="btn btn-outline-danger btn-sm m-1" type="button" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                  {% endif %}
+                      <!-- Modal -->
+                    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">Delete Post?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <form action="/post/delete/{{ post.id }}" method="POST">
+                              <input class="btn btn-danger" type="submit" value="Delete">
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                </div>
+                 
+              </div>
+              <h2 class="article-title">{{ post.title }}</h2>
+              <p class="article-content">{{ post.content }}</p>
+            </div>
+            
+          </article>
 
       </div>
       <div  class="col-md-4 bg-dark">
