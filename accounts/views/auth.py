@@ -12,6 +12,7 @@ def index(request):
     return render(request,'index.html')
 
 def dashboard(request):
+    """dashboard view"""
     return render(request,'dashboard.html')
 
 """ USER REGISTRATION VIEW """  
