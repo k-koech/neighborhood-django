@@ -76,3 +76,11 @@ class Business(models.Model):
     business_email=models.CharField(max_length =200)
     neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE)
     user=models.ForeignKey("Users",on_delete=models.CASCADE)
+
+class Health(models.Model):
+    Contact = models.CharField(max_length =200)
+    neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE)
+ 
+class  Police(models.Model):
+    Contact = models.CharField(max_length =200)
+    neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE)
