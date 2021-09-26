@@ -11,12 +11,13 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
-        <h1>Creating websites that make you stop & stare</h1>
-        <h2>Accusantium quam, aliquam ultricies eget tempor id, aliquam eget nibh et. Maecen aliquam, risus at semper. Proin iaculis purus consequat sem cure digni ssim. Donec porttitora entum.</h2>
+        <h1>The Neighbors</h1>
+        <h2>
+          Where neighbors work together, share ideas and work towards the bettwerment of the community.</h2>
         <div><a href="#about" class="btn-get-started scrollto">Get Started</a></div>
       </div>
       <div class="col-lg-6 order-1 order-lg-2 hero-img">
-        <img src="assets/img/hero-img.png" class="img-fluid" alt="">
+        <img src="{% static 'images/neighbor.png' %}" class="img-fluid" alt="">
       </div>
     </div>
   </div>
@@ -37,7 +38,7 @@
         <img class="rounded-circle article-img" src="{{post.image.url}}">
           <div class="media-body">
             <div class="article-metadata ">
-              <a class="mr-2" href="#">{{ post.user.username }}</a>
+              <a class="mr-2" href="#">{{ post.user.name }}</a>
               <small class="text-muted">{{ post.date_posted|date:"M d, Y"  }}</small>
             </div>
             <h2><a class="article-title" href="/post/{{post.id}}">{{ post.title }}</a></h2>
@@ -50,8 +51,8 @@
        
 
       </div>
-      <div  class="col-md-4 bg-dark">
-             hello
+      <div  class="col-md-4 card">
+             <h>
       </div>
 
     </div>
