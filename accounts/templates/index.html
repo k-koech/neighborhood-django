@@ -3,8 +3,7 @@
 
 {% block content %}
   {% block styles %}
-  <link rel="stylesheet" href="{% static '' %}" >
-
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" >
   {% endblock %}
  <!-- ======= Hero Section ======= -->
  <section id="hero" class="d-flex align-items-center">
@@ -23,6 +22,42 @@
   </div>
 
 </section><!-- End Hero -->
+{% if user.is_authenticated %}
 
+<main id="main">
+<h4 class="text-center font-weight-bold">Posts in {{request.user.neighborhood.name}}</h4>
+<!-- ======= blog Section ======= -->
+<section id="about" class="about">
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-md-8">
+
+        {% for post in posts %}
+        <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{post.image.url}}">
+          <div class="media-body">
+            <div class="article-metadata ">
+              <a class="mr-2" href="#">{{ post.user.username }}</a>
+              <small class="text-muted">{{ post.date_posted|date:"M d, Y"  }}</small>
+            </div>
+            <h2><a class="article-title" href="/post/{{post.id}}">{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.content }}</p>
+          </div>
+        </article>
+
+    {% endfor %}
+       
+       
+
+      </div>
+      <div  class="col-md-4 bg-dark">
+             hello
+      </div>
+
+    </div>
+  </div>
+</section><!-- End blog Section -->
+
+{% endif %}
 
 {% endblock %}

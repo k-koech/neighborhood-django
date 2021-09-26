@@ -14,8 +14,8 @@ def add_post(request):
         content=request.POST.get('content')
         image=request.FILES.get('image')
 
-        user = Post(title=title, image=image,content=content,neighborhood=request.user.neighborhood, user=request.user)
-        user.save()
+        post = Post(title=title, image=image,content=content,neighborhood=request.user.neighborhood, user=request.user)
+        post.save()
 
         messages.add_message(request, messages.SUCCESS, 'Posted successfully!')
         return redirect(add_post)

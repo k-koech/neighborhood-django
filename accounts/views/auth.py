@@ -1,6 +1,6 @@
 from django.http.response import JsonResponse
 from django.shortcuts import render, redirect
-from ..models import Neighborhood, Users
+from ..models import Neighborhood, Users,Post
 from django.contrib.auth import authenticate,login,logout,login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -9,11 +9,14 @@ from django.contrib.auth.hashers import make_password
 
 # Create your views here.
 def index(request):
-    return render(request,'index.html')
+    posts= Post.objects.filter(neighborhood__id=request.user.neighborhood.id)
+    return render(request,'index.html',{"posts":posts})
 
 def dashboard(request):
     """dashboard view"""
-    return render(request,'dashboard.html')
+    posts= Post.objects.all()
+    return render(request,'dashboard.html',{"posts":posts})
+    # return render(request,'dashboard.html')
 
 """ USER REGISTRATION VIEW """  
 def register(request):   
