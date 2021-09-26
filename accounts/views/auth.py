@@ -1,6 +1,6 @@
 from django.http.response import JsonResponse
 from django.shortcuts import render, redirect
-from ..models import Projects, Users
+from ..models import Users
 from django.contrib.auth import authenticate,login,logout,login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -9,9 +9,9 @@ from django.contrib.auth.hashers import make_password
 
 # Create your views here.
 def index(request):
-    projects=Projects.objects.all().order_by("-date_posted")
-    context={"projects":projects}
-    return render(request,'index.html', context)
+    # projects=Projects.objects.all().order_by("-date_posted")
+    # context={"projects":projects}
+    return render(request,'index.html')
 
 """ USER REGISTRATION VIEW """  
 def register(request):   
