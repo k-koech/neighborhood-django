@@ -81,11 +81,11 @@ class ProjectsTestClass(TestCase):
         self.assertEqual(new_neighborhood.occupants_count,10)
 
     # TEST BUSINESS
-    # def test_save_business(self):
-    #     user=Users(username="kk",profile_photo = 'xyz.png',name="kelvin koech", email="triplek@gmail.com", phone_number ='+254725801772',date_joined="2021-09-05 22:16:35.61389+03")
-    #     # Users.save_user(user)
-    #     users_count = Users.objects.all().count()
-    #     self.assertTrue(users_count>0)
+    def test_save_business(self):
+        business=Business(name="Kware supermatt",business_email="kwaremat@yahoo.com",neighborhood=self.new_neighborhood, user=self.user)
+        Business.save_business(business)
+        business_count = Business.objects.all().count()
+        self.assertTrue(business_count>0)
         
     def test_delete_business(self):
         business=Business.objects.first()
@@ -105,6 +105,7 @@ class ProjectsTestClass(TestCase):
         Business.update_business(id,name, business_email)
         updated_business = Business.objects.get(id=id)
         self.assertEqual(updated_business.name, "Tumaini Supermarket")
+        
     # # TEST REVIEW
     # def test_save_review(self):
     #     review= Review(design=2,usability=6,content=8,project=self.new_project,date_voted="2021-09-05 22:16:35.61389+03", user=self.user)
