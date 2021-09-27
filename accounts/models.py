@@ -119,6 +119,7 @@ class Post(models.Model):
     
 
 class Neighborhood(models.Model):
+    """NEIGHBORHOOD MODEL"""
     name = models.CharField(max_length =200)
     location = models.CharField(max_length =200)
     occupants_count = models.IntegerField()
@@ -135,8 +136,8 @@ class Neighborhood(models.Model):
         return delete_post
 
     @classmethod
-    def find_neigborhood(cls,name):
-        neighborhood=cls.objects.filter(name=name).count()
+    def find_neigborhood(cls,neigborhood_id):
+        neighborhood=cls.objects.filter(id=neigborhood_id).count()
         return neighborhood
 
     @classmethod
@@ -152,6 +153,7 @@ class Neighborhood(models.Model):
         return neighborhood.save()
 
 class Business(models.Model):
+    """BUSINESS MODEL"""
     name = models.CharField(max_length =200)
     business_email=models.CharField(max_length =200)
     neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE)
@@ -160,9 +162,14 @@ class Business(models.Model):
     class Meta:
         verbose_name_plural='Businesses'
     
-    def save_business(self):
+    def create_business(self):
         self.save()
         
+    @classmethod
+    def find_business(cls,business_id):
+        neighborhood=cls.objects.filter(id=business_id).count()
+        return neighborhood
+
     @classmethod
     def delete_business(cls,id):
         delete_business = cls.objects.get(id=id)

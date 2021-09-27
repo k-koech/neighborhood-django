@@ -26,7 +26,8 @@ class ProjectsTestClass(TestCase):
         Business.objects.all().delete()
         Neighborhood.objects.all().delete()
 
-    # TEST USERS
+
+    """TEST USERS"""
     def test_saveuser(self):
         user=Users(username="kk",profile_photo = 'xyz.png',name="kelvin koech", email="triplek@gmail.com", phone_number ='+254725801772',date_joined="2021-09-05 22:16:35.61389+03")
         # Users.save_user(user)
@@ -55,7 +56,8 @@ class ProjectsTestClass(TestCase):
         except Users.DoesNotExist:
             self.assertTrue("no results"=="no results")
 
-    # TEST NEIGHBORHOOD
+
+    """TEST NEIGHBORHOOD"""
     def test_save_create_neighborhood(self):
         neighborhood=Neighborhood(name="Mwangaza",location = 'Rongai', occupants_count=1)
         Neighborhood.create_neigborhood(neighborhood)
@@ -64,8 +66,9 @@ class ProjectsTestClass(TestCase):
 
 
     def test_find_neigborhood(self):
-        name="Mwangaza"
-        count=Neighborhood.find_neigborhood(name)
+        neighborhood = Neighborhood.objects.first()
+        id=neighborhood.id
+        count=Neighborhood.find_neigborhood(id)
         self.assertTrue(count>0)
 
     def test_update_neighborhood(self):
@@ -84,10 +87,11 @@ class ProjectsTestClass(TestCase):
         new_neighborhood = Neighborhood.objects.get(id=id)
         self.assertEqual(new_neighborhood.occupants_count,10)
 
-    # TEST BUSINESS
+
+    """TEST BUSINESS"""
     def test_save_business(self):
         business=Business(name="Kware supermatt",business_email="kwaremat@yahoo.com",neighborhood=self.new_neighborhood, user=self.user)
-        Business.save_business(business)
+        Business.create_business(business)
         business_count = Business.objects.all().count()
         self.assertTrue(business_count>0)
         
@@ -101,6 +105,13 @@ class ProjectsTestClass(TestCase):
         except Business.DoesNotExist:
             self.assertTrue("no results"=="no results")
 
+    def test_find_business(self):
+        business = Business.objects.first()
+        id=business.id
+        count=Business.find_business(id)
+        self.assertTrue(count>0)
+
+
     def test_update_business(self):
         business_obj = Business.objects.first()
         id=business_obj.id
@@ -110,7 +121,8 @@ class ProjectsTestClass(TestCase):
         updated_business = Business.objects.get(id=id)
         self.assertEqual(updated_business.name, "Tumaini Supermarket")
 
-     # TEST POST
+
+    """TEST POST"""
     def test_save_post(self):
         post=Post(title="Lets have fun tommorow",content="We will have a ride to Ngong and back",neighborhood=self.new_neighborhood, user=self.user)
         Post.save_post(post)
