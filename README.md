@@ -1,8 +1,8 @@
-# PROJECT REVIEW APPLICATION 
-#### The app is a project review, 21/09/2021
+# NEIGHBORS APPLICATION 
+#### The app is a Neighbors App, 27/09/2021
 #### **By Kelvin Kipchumba**
 ## Project Description
-    The application allows a user to post a project he/she has created and get it reviewed by other users.
+    The application allows user to know what is happening in his/her neighborhood most of the time. Its also a platform where important meeting, theft or even death cases are announced
 ## Setup/Installation Requirements
     - Download a file in the code section to the desired folder
     - Extract the files
@@ -16,12 +16,13 @@
 
 ## BDD
     As a user, I would like to:
-    - View posted projects and their details
-    - Post a project to be rated/reviewed
-    - Rate/ review other users' projects
-    - Search for projects 
-    - View projects overall score
-    - View my profile page
+    - Sign in with the application to start using.
+    - Set up a profile about me and a general location and my neighborhood name.
+    - Find a list of different businesses in my neighborhood.
+    - Find Contact Information for the health department and Police authorities near my neighborhood.
+    - Create Posts that will be visible to everyone in my neighborhood.
+    - Change My neighborhood when I decide to move out.
+    - Only view details of a single neighborhood.
   
 ## Live link
 Deployed project can be accessed here [neighborhood](https://django-neighborhood.herokuapp.com/)   
@@ -43,5 +44,5 @@ Deployed project can be accessed here [neighborhood](https://django-neighborhood
     - phone :: +254725801772
 
 ### License
-*Licenced under the [MT-licence](https://github.com/k-koech/projects_review/blob/master/LICENSE.md)*
+*Licenced under the [MT-licence](https://github.com/k-koech/neighborhood-django/blob/master/LICENSE.md)*
 Copyright (c) 2021 **Kelvin Kipchumba
