@@ -63,6 +63,13 @@ class Users(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
+    class Meta:
+        verbose_name_plural='Users'
+
+
+    def save_user(self):
+        self.save()
+
     @classmethod
     def delete_user(cls,id):
         delete_user = cls.objects.get(id=id)
@@ -92,6 +99,23 @@ class Post(models.Model):
     user=models.ForeignKey("Users",on_delete=models.CASCADE)
     neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE)
 
+    def save_post(self):
+        self.save()
+        
+    @classmethod
+    def delete_post(cls,id):
+        delete_post = cls.objects.get(id=id)
+        delete_post.delete()
+        return delete_post
+    
+    @classmethod
+    def update_post(cls,id,title, content,image):
+        post=cls.objects.get(id=id)
+        post.title=title
+        post.content=content
+        post.image=image
+        return post.save()
+    
 
 class Neighborhood(models.Model):
     name = models.CharField(max_length =200)
@@ -100,31 +124,68 @@ class Neighborhood(models.Model):
     # admin=models.ForeignKey("Admin",on_delete=models.CASCADE)
 
 
+    def create_neigborhood(self):
+        self.save()
+    
+    @classmethod
+    def delete_neigborhood(cls):
+        delete_post = cls.objects.get(id=id)
+        delete_post.delete()
+        return delete_post
+
+    @classmethod
+    def find_neigborhood(cls,name):
+        neighborhood=cls.objects.filter(name=name).count()
+        return neighborhood
+
+    @classmethod
+    def update_neighborhood(cls,id, name):
+        neighborhood=cls.objects.get(id=id)
+        neighborhood.name=name
+        return neighborhood.save()
+
+    @classmethod
+    def update_occupants(cls, id, occupants_count):
+        neighborhood=cls.objects.get(id=id)
+        neighborhood.occupants_count=occupants_count
+        return neighborhood.save()
+
 class Business(models.Model):
     name = models.CharField(max_length =200)
     business_email=models.CharField(max_length =200)
     neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE)
     user=models.ForeignKey("Users",on_delete=models.CASCADE)
-
-    def create_neigborhood(cls):
-        pass
-
-    def delete_neigborhood(cls):
-        pass
-
-    def find_neigborhood(neigborhood_id):
-        pass
-
-    def update_neighborhood():
-        pass
-
-    def update_occupants(cls):
-        pass
+    
+    class Meta:
+        verbose_name_plural='Businesses'
+    
+    def save_business(self):
+        self.save()
+        
+    @classmethod
+    def delete_business(cls,id):
+        delete_business = cls.objects.get(id=id)
+        delete_business.delete()
+        return delete_business
+    
+    @classmethod
+    def update_business(cls,id,name, business_email):
+        business=cls.objects.get(id=id)
+        business.name=name
+        business.business_email=business_email
+        return business.save()
+    
 
 class Health(models.Model):
     contact = models.CharField(max_length =200)
     neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural='Health'
  
 class Police(models.Model):
     contact = models.CharField(max_length =200)
     neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural='Police'

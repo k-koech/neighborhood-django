@@ -9,7 +9,7 @@ from django.contrib.auth.hashers import make_password
 
 # Create your views here.
 def index(request):
-    businesses= Business.objects.filter(neighborhood__id=request.user.neighborhood.id)
+    businesses= Business.objects.filter(neighborhood=request.user.neighborhood.id)
     posts= Post.objects.filter(neighborhood__id=request.user.neighborhood.id)
     return render(request,'index.html',{"posts":posts, "businesses":businesses})
 

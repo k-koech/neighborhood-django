@@ -36,7 +36,7 @@
       {% if posts %}
         {% for post in posts %}
         <article class="media content-section mb-4">
-        <img class="rounded-circle article-img" src="{{post.user.profile_photo_url}}">
+        <img class="rounded-circle article-img" src="{{post.user.profile_photo.url}}">
           <div class="media-body ">
             <div class="row bordered bg-light">
               <div class="col-sm-4 article-image p-0">
