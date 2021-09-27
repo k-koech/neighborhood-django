@@ -44,5 +44,5 @@ Deployed project can be accessed here [neighborhood](https://django-neighborhood
     - phone :: +254725801772
 
 ### License
-*Licenced under the [MT-licence](https://github.com/k-koech/neighborhood-django/blob/master/LICENSE.md)*
+*Licenced under the [MIT-licence](https://github.com/k-koech/neighborhood-django/blob/master/LICENSE.md)*
 Copyright (c) 2021 **Kelvin Kipchumba
