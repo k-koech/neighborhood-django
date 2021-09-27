@@ -10,12 +10,16 @@ class ProjectsTestClass(TestCase):
         self.new_neighborhood.save()
         
         # Creating a new user and saving it
-        self.user=Users(name="kelvin kip",profile_photo = 'xyz.png', email="triplek@gmail.com", phone_number ='+254725801772',date_joined="2021-09-05 22:16:35.61389+03",neighborhood=self.new_neighborhood)
+        self.user=Users(name="kelvin kip",profile_photo = 'xyz.png', email="triplek@gmail.com", phone_number ='+254725801772',neighborhood=self.new_neighborhood)
         self.user.save()
 
         # Creating a new business and saving it
         self.new_business = Business(name="Kware supermatt",business_email="kwaremat@yahoo.com",neighborhood=self.new_neighborhood, user=self.user)
         self.new_business.save()
+
+        # Creating a new post and saving it
+        self.new_post = Post(title="Lets have fun tommorow",content="We will have a ride to Ngong and back",neighborhood=self.new_neighborhood, user=self.user)
+        self.new_post.save()
 
     def tearDown(self):
         Users.objects.all().delete()
@@ -105,31 +109,31 @@ class ProjectsTestClass(TestCase):
         Business.update_business(id,name, business_email)
         updated_business = Business.objects.get(id=id)
         self.assertEqual(updated_business.name, "Tumaini Supermarket")
-        
-    # # TEST REVIEW
-    # def test_save_review(self):
-    #     review= Review(design=2,usability=6,content=8,project=self.new_project,date_voted="2021-09-05 22:16:35.61389+03", user=self.user)
-    #     review.save_review()
-    #     review_obj = Review.objects.all().count()
-    #     self.assertTrue(review_obj>1)
+
+     # TEST POST
+    def test_save_post(self):
+        post=Post(title="Lets have fun tommorow",content="We will have a ride to Ngong and back",neighborhood=self.new_neighborhood, user=self.user)
+        Post.save_post(post)
+        post_obj = Post.objects.all().count()
+        self.assertTrue(post_obj>1)
 
 
-    # def test_update_review(self):
-    #     review_obj = Review.objects.first()
-    #     id=review_obj.id
-    #     design=3
-    #     content=6
-    #     usability=10    
-    #     Review.update_review(id,design,content,usability)
-    #     updated_review = Review.objects.get(id=id)
-    #     self.assertEqual(updated_review.content,6.0)
+    def test_update_post(self):
+        post_obj = Post.objects.first()
+        id=post_obj.id
+        title="Yesterday robbery"
+        content="We will have a ride to Ngong and back tommorow"
+        image="ysc.png"  
+        Post.update_post(id,title, content,image)
+        updated_post = Post.objects.get(id=id)
+        self.assertEqual(updated_post.title,"Yesterday robbery")
 
-    # def test_delete_review(self):
-    #     reviews=Review.objects.first()
-    #     id=reviews.id
-    #     reviews.delete_review(id)
-    #     try:
-    #         Review.objects.get(id=id)
-    #         self.assertTrue("Some results")
-    #     except Review.DoesNotExist:
-    #         self.assertTrue("no results"=="no results")
+    def test_delete_post(self):
+        posts=Post.objects.first()
+        id=posts.id
+        Post.delete_post(id)
+        try:
+            Post.objects.get(id=id)
+            self.assertTrue("Some results")
+        except Post.DoesNotExist:
+            self.assertTrue("no results"=="no results")

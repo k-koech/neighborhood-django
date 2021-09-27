@@ -99,6 +99,7 @@ class Post(models.Model):
     user=models.ForeignKey("Users",on_delete=models.CASCADE)
     neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE)
 
+    # @classmethod
     def save_post(self):
         self.save()
         
