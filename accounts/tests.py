@@ -5,7 +5,7 @@ class ProjectsTestClass(TestCase):
     def setUp(self):
        
 
-        # Creating a new Neighborhood and saving it
+        # Creating a new neighborhood and saving it
         self.new_neighborhood = Neighborhood(name="Mwangaza",location = 'Rongai', occupants_count=1)
         self.new_neighborhood.save()
         
@@ -159,6 +159,7 @@ class ProjectsTestClass(TestCase):
         except Post.DoesNotExist:
             self.assertTrue("no results"=="no results")
 
+
     """TEST HEALTH"""
     def test_save_health(self):
         health=Health(contact="mtcr@gmail.com", neighborhood=self.new_neighborhood)
@@ -184,6 +185,8 @@ class ProjectsTestClass(TestCase):
         except Health.DoesNotExist:
             self.assertTrue("no results"=="no results")
     
+
+
     """TEST POLICE"""
     def test_save_police(self):
         police=Police(contact="rongaipolice@gmail.com", neighborhood=self.new_neighborhood)

@@ -38,7 +38,7 @@ class Users(AbstractBaseUser):
     email = models.CharField( max_length=100, unique=True)
     id_number = models.IntegerField(null=True)
     phone_number = models.CharField(max_length = 15,blank =True)
-    neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE, null=True)
+    neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE,blank=True)
     profile_photo = CloudinaryField('image', default='image/upload/v1631717620/default_uomrne.jpg') 
     date_joined = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
     last_login = models.DateTimeField(default=dt.datetime.now)
@@ -79,7 +79,6 @@ class Users(AbstractBaseUser):
     @classmethod
     def update_user(cls,id,profile_photo, phone_number,neighborhood, name):
         user=cls.objects.get(id=id)
-
         user.profile_photo=profile_photo
         user.phone_number=phone_number
         user.neighborhood=neighborhood
@@ -99,7 +98,10 @@ class Post(models.Model):
     user=models.ForeignKey("Users",on_delete=models.CASCADE)
     neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE)
 
-    # @classmethod
+    def _str_(self):
+        return self.title
+   
+    
     def save_post(self):
         self.save()
         
@@ -116,6 +118,8 @@ class Post(models.Model):
         post.content=content
         post.image=image
         return post.save()
+
+    
     
 
 class Neighborhood(models.Model):
@@ -123,8 +127,6 @@ class Neighborhood(models.Model):
     name = models.CharField(max_length =200)
     location = models.CharField(max_length =200)
     occupants_count = models.IntegerField()
-    # admin=models.ForeignKey("Admin",on_delete=models.CASCADE)
-
 
     def create_neigborhood(self):
         self.save()

@@ -13,11 +13,10 @@ def index(request):
     posts= Post.objects.filter(neighborhood__id=request.user.neighborhood.id)
     return render(request,'index.html',{"posts":posts, "businesses":businesses})
 
-def dashboard(request):
+def business(request):
     """dashboard view"""
     posts= Post.objects.all()
-    return render(request,'dashboard.html',{"posts":posts})
-    # return render(request,'dashboard.html')
+    return render(request,'business.html',{"posts":posts})
 
 """ USER REGISTRATION VIEW """  
 def register(request):   
@@ -68,7 +67,7 @@ def signIn(request):
         if user is not None:
             login(request,user )
             messages.add_message(request, messages.SUCCESS, 'Logged in successfully')
-            return redirect(dashboard)
+            return redirect(index)
  
         else:
             messages.add_message(request, messages.ERROR, 'Invalid Credentials!')

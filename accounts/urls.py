@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .views.auth import dashboard, index, profile, register,signIn, signOut,update_neighborhood
+from .views.auth import index, profile, register,signIn,business, signOut,update_neighborhood
 from .views.departments import departments
 from .views.post import add_post, post
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -12,7 +12,7 @@ urlpatterns = [
     path('login', signIn, name='login'),
     path('signOut', signOut, name='signOut'),
  
-    path('dashboard', dashboard, name='dashboard'),
+    path('business', business, name='business'),
     path('profile', profile, name='profile'),
     path('profile/neighborhood', update_neighborhood, name='update_neighborhood'),
 
