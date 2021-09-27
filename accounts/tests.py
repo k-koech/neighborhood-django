@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import  Business, Neighborhood, Users, Post
+from .models import  Business, Health, Neighborhood, Police, Users, Post
 # Create your tests here.
 class ProjectsTestClass(TestCase):
     def setUp(self):
@@ -17,9 +17,14 @@ class ProjectsTestClass(TestCase):
         self.new_business = Business(name="Kware supermatt",business_email="kwaremat@yahoo.com",neighborhood=self.new_neighborhood, user=self.user)
         self.new_business.save()
 
-        # Creating a new post and saving it
-        self.new_post = Post(title="Lets have fun tommorow",content="We will have a ride to Ngong and back",neighborhood=self.new_neighborhood, user=self.user)
-        self.new_post.save()
+        # Creating a new health and saving it
+        self.new_health = Health(contact="mtcr@gmail.com" , neighborhood=self.new_neighborhood)
+        self.new_health.save()
+        
+        # Creating a new police and saving it
+        self.new_police = Police(contact="rongaipolice@gmail.com", neighborhood=self.new_neighborhood)
+        self.new_police.save()
+
 
     def tearDown(self):
         Users.objects.all().delete()
@@ -29,7 +34,7 @@ class ProjectsTestClass(TestCase):
 
     """TEST USERS"""
     def test_saveuser(self):
-        user=Users(username="kk",profile_photo = 'xyz.png',name="kelvin koech", email="triplek@gmail.com", phone_number ='+254725801772',date_joined="2021-09-05 22:16:35.61389+03")
+        user=Users(username="kk",profile_photo = 'xyz.png',name="kelvin koech", email="triplek@gmail.com", phone_number ='+254725801772')
         # Users.save_user(user)
         users_count = Users.objects.all().count()
         self.assertTrue(users_count>0)
@@ -127,10 +132,12 @@ class ProjectsTestClass(TestCase):
         post=Post(title="Lets have fun tommorow",content="We will have a ride to Ngong and back",neighborhood=self.new_neighborhood, user=self.user)
         Post.save_post(post)
         post_obj = Post.objects.all().count()
-        self.assertTrue(post_obj>1)
+        self.assertTrue(post_obj==1)
 
 
     def test_update_post(self):
+        post=Post(title="Lets have fun tommorow",content="We will have a ride to Ngong and back",neighborhood=self.new_neighborhood, user=self.user)
+        Post.save_post(post)
         post_obj = Post.objects.first()
         id=post_obj.id
         title="Yesterday robbery"
@@ -141,11 +148,63 @@ class ProjectsTestClass(TestCase):
         self.assertEqual(updated_post.title,"Yesterday robbery")
 
     def test_delete_post(self):
-        posts=Post.objects.first()
+        post=Post(title="Lets have fun tommorow",content="We will have a ride to Ngong and back",neighborhood=self.new_neighborhood, user=self.user)
+        Post.save_post(post)
+        posts=Post.objects.all().first()
         id=posts.id
         Post.delete_post(id)
         try:
             Post.objects.get(id=id)
             self.assertTrue("Some results")
         except Post.DoesNotExist:
+            self.assertTrue("no results"=="no results")
+
+    """TEST HEALTH"""
+    def test_save_health(self):
+        health=Health(contact="mtcr@gmail.com", neighborhood=self.new_neighborhood)
+        Health.create_health(health)
+        health_obj = Health.objects.all().count()
+        self.assertTrue(health_obj>1)
+   
+    def test_update_health(self):
+        health_obj = Health.objects.first()
+        id=health_obj.id
+        contact="kmtc@yahoo.com"  
+        Health.update_health(id,contact)
+        updated_health = Health.objects.get(id=id)
+        self.assertEqual(updated_health.contact,"kmtc@yahoo.com")
+
+    def test_delete_health(self):
+        health=Health.objects.first()
+        id=health.id
+        Health.delete_health(id)
+        try:
+            Health.objects.get(id=id)
+            self.assertTrue("Some results")
+        except Health.DoesNotExist:
+            self.assertTrue("no results"=="no results")
+    
+    """TEST POLICE"""
+    def test_save_police(self):
+        police=Police(contact="rongaipolice@gmail.com", neighborhood=self.new_neighborhood)
+        Police.create_police(police)
+        police_obj = Police.objects.all().count()
+        self.assertTrue(police_obj>1)
+   
+    def test_update_police(self):
+        police_obj = Police.objects.first()
+        id=police_obj.id
+        contact="rongaipolice@yahoo.com"  
+        Police.update_police(id,contact)
+        updated_police = Police.objects.get(id=id)
+        self.assertEqual(updated_police.contact,"rongaipolice@yahoo.com")
+
+    def test_delete_police(self):
+        police=Police.objects.first()
+        id=police.id
+        police.delete_police(id)
+        try:
+            Police.objects.get(id=id)
+            self.assertTrue("Some results")
+        except Police.DoesNotExist:
             self.assertTrue("no results"=="no results")

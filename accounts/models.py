@@ -185,11 +185,28 @@ class Business(models.Model):
     
 
 class Health(models.Model):
+    """HEALTH MODEL"""
     contact = models.CharField(max_length =200)
     neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural='Health'
+        
+    def create_health(self):
+        self.save()
+
+    @classmethod
+    def delete_health(cls,id):
+        delete_health = cls.objects.get(id=id)
+        delete_health.delete()
+        return delete_health
+    
+    @classmethod
+    def update_health(cls,id,contact):
+        health=cls.objects.get(id=id)
+        health.contact=contact
+        return health.save()
+    
  
 class Police(models.Model):
     contact = models.CharField(max_length =200)
@@ -197,3 +214,18 @@ class Police(models.Model):
 
     class Meta:
         verbose_name_plural='Police'
+
+    def create_police(self):
+        self.save()
+
+    @classmethod
+    def delete_police(cls,id):
+        delete_police = cls.objects.get(id=id)
+        delete_police.delete()
+        return delete_police
+    
+    @classmethod
+    def update_police(cls,id,contact):
+        police=cls.objects.get(id=id)
+        police.contact=contact
+        return police.save()

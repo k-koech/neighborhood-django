@@ -8,8 +8,9 @@
   {% endblock %}
 <div class="register-photo">
     <div class="form-container ">
-        <div class="image-holder pt-5">
+        <div class="image-holder pt-5 bg-white">
             <img src="{% static 'images/register.png' %}"> 
+            <h1  class="text-center ">The neighborhood</h1>
         </div>
         
         <form class="mt-0" method="post">
@@ -33,8 +34,8 @@
                 <input class="form-control" type="password" name="password" placeholder="Password">
             </div>
             
-            <div class="form-group mt-3 bg-dark float-right" >
-                <button style="width: 100%;" class="btn btn-success d-block rounded-0 btn-block mr-auto mt-2" type="submit">Sign Up</button>
+            <div class="form-group mt-3 float-right" >
+                <button style="width: 100% !important;" class="btn btn-success d-block rounded-0 btn-block mr-auto mt-2" type="submit">Sign Up</button>
             </div>
             <a class="already mt-2 ml-auto" href="/register">You don't have an account? Register here.</a>
         </form>
