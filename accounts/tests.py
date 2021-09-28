@@ -14,7 +14,7 @@ class ProjectsTestClass(TestCase):
         self.user.save()
 
         # Creating a new business and saving it
-        self.new_business = Business(name="Kware supermatt",business_email="kwaremat@yahoo.com",neighborhood=self.new_neighborhood, user=self.user)
+        self.new_business = Business(name="Kware supermatt",business_email="kwaremat@yahoo.com",neighborhood=self.new_neighborhood, admin=self.user)
         self.new_business.save()
 
         # Creating a new health and saving it
@@ -95,7 +95,7 @@ class ProjectsTestClass(TestCase):
 
     """TEST BUSINESS"""
     def test_save_business(self):
-        business=Business(name="Kware supermatt",business_email="kwaremat@yahoo.com",neighborhood=self.new_neighborhood, user=self.user)
+        business=Business(name="Kware supermatt",business_email="kwaremat@yahoo.com",neighborhood=self.new_neighborhood, admin=self.user)
         Business.create_business(business)
         business_count = Business.objects.all().count()
         self.assertTrue(business_count>0)
