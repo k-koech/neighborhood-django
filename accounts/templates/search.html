@@ -20,11 +20,9 @@
       <section id="team" class="team section-bg">
       <div class="container">
         <div class="row">
-      {% if businesses %}
-        {% for business in businesses %}
+      {% if business %}
          <!-- ======= Business Section ======= -->
-    
-
+  
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div class="member">
               <div class="member-info">
@@ -34,17 +32,17 @@
             </div>
           </div>
 
-      {% endfor %}
     {% else %}
-    <div class="alert alert-info">
-      No business has been added at the moment
+    <div class="container px-auto text-center bg-dark">
+      <div class="alert alert-info mx-auto">
+       No business matches your search been added at the moment
+      </div>
     </div>
-
     {% endif %}
   </div>
 
 </div>
-</section><!-- End Team Section -->
+</section><!-- End business Section -->
        
        
 

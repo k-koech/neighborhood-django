@@ -1139,9 +1139,10 @@ section {
   display: inline-block;
   line-height: 1;
 }
+
 #footer .footer-top .footer-links ul a:hover {
   text-decoration: none;
-  color: #49b5e7;
+  color: #9b9b9b;
 }
 #footer .footer-top .social-links a {
   font-size: 18px;

@@ -36,9 +36,10 @@ class Users(AbstractBaseUser):
     name = models.CharField( max_length=200)  
     username = models.CharField( max_length=200, blank=True)  
     email = models.CharField( max_length=100, unique=True)
+    about_me = models.IntegerField(null=True)
     id_number = models.IntegerField(null=True)
     phone_number = models.CharField(max_length = 15,blank =True)
-    neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE,blank=True)
+    neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE,null=True)
     profile_photo = CloudinaryField('image', default='image/upload/v1631717620/default_uomrne.jpg') 
     date_joined = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
     last_login = models.DateTimeField(default=dt.datetime.now)
@@ -55,7 +56,7 @@ class Users(AbstractBaseUser):
     objects=MyAccountManager()
      
     def _str_(self):
-        return self.email
+        return self.name
     
     def has_perm(self, perm, obj=None):
         return self.is_admin
@@ -100,7 +101,6 @@ class Post(models.Model):
 
     def _str_(self):
         return self.title
-   
     
     def save_post(self):
         self.save()
@@ -127,6 +127,10 @@ class Neighborhood(models.Model):
     name = models.CharField(max_length =200)
     location = models.CharField(max_length =200)
     occupants_count = models.IntegerField()
+    # admin=models.ForeignKey("Users",on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name 
 
     def create_neigborhood(self):
         self.save()
@@ -159,8 +163,11 @@ class Business(models.Model):
     name = models.CharField(max_length =200)
     business_email=models.CharField(max_length =200)
     neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE)
-    user=models.ForeignKey("Users",on_delete=models.CASCADE)
+    admin=models.ForeignKey("Users",on_delete=models.CASCADE)
     
+    def __str__(self):
+        return self.name 
+
     class Meta:
         verbose_name_plural='Businesses'
     
@@ -188,8 +195,12 @@ class Business(models.Model):
 
 class Health(models.Model):
     """HEALTH MODEL"""
+    name = models.CharField(max_length =200)
     contact = models.CharField(max_length =200)
     neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name 
 
     class Meta:
         verbose_name_plural='Health'
@@ -211,6 +222,7 @@ class Health(models.Model):
     
  
 class Police(models.Model):
+    name = models.CharField(max_length =200)
     contact = models.CharField(max_length =200)
     neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE)
 

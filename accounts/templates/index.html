@@ -74,24 +74,26 @@
      
       <div  class="col-md-4 pt-4"> 
       <div class="card mb-4">
-        <div class="card-header">Businesses</div>
+        <div class="card-header">Search for business</div>
         <div class="card-body">
           <div class="card-body">
               <div class="input-group">
-                  <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                  <button class="btn btn-primary ml-1" id="button-search" type="button">Go!</button>
+                <form action="/search" method="POST">
+                  {% csrf_token %}
+                  <input style="width: 100%;" required name="search" class="form-control mb-3" type="text" placeholder="Enter business name ..."/>
+                  <button class="btn btn-primary ml-1 float-right px-5" id="button-search" type="submit">search</button>
+                </form>
+                <span class="small">Note: it is case sensitive</span>
               </div>
           </div>
 
-          {% if businesses %}
-            {% for business in businesses %}
-              <p>{{ business.name }}</p>
-              {% endfor %}
-            {% else %}
-            <div class="alert alert-info">
-              No business has been added!
-            </div>
-            {% endif %}
+          <ul class="list-group">
+            <li class="list-group-item "><a class="text-dark" href="/">Home</a></li>
+            <li class="list-group-item "><a class="text-dark" href="/">View Posts</a></li>
+            <li class="list-group-item "><a class="text-dark" href="/add_post">Create Post</a></li>
+            <li class="list-group-item "><a class="text-dark" href="/business">Business</a></li>
+            <li class="list-group-item "><a class="text-dark" href="/profile">Profile</a></li>
+          </ul>
         </div>
       </div>             
     </div>

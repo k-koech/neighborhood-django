@@ -9,14 +9,29 @@ from django.contrib.auth.hashers import make_password
 
 # Create your views here.
 def index(request):
-    businesses= Business.objects.filter(neighborhood=request.user.neighborhood.id)
-    posts= Post.objects.filter(neighborhood__id=request.user.neighborhood.id)
-    return render(request,'index.html',{"posts":posts, "businesses":businesses})
+    if request.user.is_authenticated:
+        posts= Post.objects.filter(neighborhood__id=request.user.neighborhood.id)
+        return render(request,'index.html',{"posts":posts})
+    else:
+        return render(request,'index.html')
 
+@login_required(login_url='/')
 def business(request):
-    """dashboard view"""
-    posts= Post.objects.all()
-    return render(request,'business.html',{"posts":posts})
+    """BUSINESS VIEW"""
+    business= Business.objects.filter(neighborhood=request.user.neighborhood.id)
+    return render(request,'business.html',{"businesses":business})
+
+@login_required(login_url='/')
+def search(request):
+    """BUSINESS SEARCH"""
+    if request.method=="POST":
+        search=request.POST.get('search')
+        business= Business.objects.filter(neighborhood=request.user.neighborhood.id, name__contains=search)
+        return render(request,'business.html',{"businesses":business})
+    else:
+        return redirect(index)
+
+
 
 """ USER REGISTRATION VIEW """  
 def register(request):   
@@ -34,7 +49,7 @@ def register(request):
         email_exist=Users.objects.filter(email=email).count()
 
         if id_numbers>0:
-            messages.add_message(request, messages.ERROR, 'Username exist!')
+            messages.add_message(request, messages.ERROR, 'ID exist!')
             return redirect(register)
 
         elif email_exist>0:
@@ -49,7 +64,7 @@ def register(request):
                 user = Users(name=name, email=email,id_number=id_number,neighborhood=neighborhood, password=make_password(password))
                 user.save()
 
-                messages.add_message(request, messages.SUCCESS, 'Registereed successfully!')
+                messages.add_message(request, messages.SUCCESS, 'Registered successfully!')
                 return redirect(signIn)
      
     else:
@@ -79,7 +94,6 @@ def signIn(request):
 """ LOGOUT VIEW """
 def signOut(request):
     logout(request)
-    # messages.add_message(request, messages.SUCCESS, 'Logout successfully!')
     return redirect(index)
 
 def profile(request):   

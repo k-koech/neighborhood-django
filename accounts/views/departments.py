@@ -6,7 +6,7 @@ from django.contrib.auth.hashers import make_password
 
 
 # Create your views here.
-# @login_required("/")portfolio
+@login_required(login_url='/')
 def departments(request):
     health=Health.objects.filter(neighborhood__id=request.user.neighborhood.id)
     police=Police.objects.filter(neighborhood__id=request.user.neighborhood.id)

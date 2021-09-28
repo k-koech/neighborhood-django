@@ -1,13 +1,12 @@
 from django.http.response import JsonResponse
 from django.shortcuts import render, redirect
-from ..models import Neighborhood, Post
-from django.contrib.auth import authenticate,login,logout,login
+from ..models import Post
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.contrib.auth.hashers import make_password
 
 
 # Create your views here.
+@login_required(login_url='/')
 def add_post(request):
     if request.method=="POST":
         title=request.POST.get('title')
@@ -23,6 +22,7 @@ def add_post(request):
     else:
         return render(request,'add_post.html')
 
+@login_required(login_url='/')
 def post(request, id):
     post = Post.objects.get(id=id)
     return render(request,'post.html', {"post":post})
