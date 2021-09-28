@@ -127,7 +127,8 @@ class Neighborhood(models.Model):
     name = models.CharField(max_length =200)
     location = models.CharField(max_length =200)
     occupants_count = models.IntegerField()
-    # admin=models.ForeignKey("Users",on_delete=models.CASCADE)
+    #admin=models.ForeignKey("Users",on_delete=models.CASCADE)
+    # has an error of reverse query
 
     def __str__(self):
         return self.name 
