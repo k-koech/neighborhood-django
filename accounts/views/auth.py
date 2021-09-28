@@ -103,6 +103,7 @@ def profile(request):
 
         user.name=request.POST.get('name')
         user.profile_photo=request.FILES['profile_photo']
+        user.about_me=request.POST['about_me']
         user.phone=request.POST.get('phone_number')
         
         user.save()

@@ -36,6 +36,7 @@
                     <thead>
                       <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Name</th>
                         <th scope="col">Contacts</th>
                       </tr>
                     </thead>
@@ -44,6 +45,7 @@
                         {% for contacts in police %}
                         <tr>
                           <th scope="row">#</th>
+                          <td>{{contacts.name}}</td>
                           <td>{{contacts.contact}}</td>
                         </tr> 
                         {% endfor %}
@@ -62,6 +64,7 @@
                     <thead>
                       <tr>
                         <th scope="col">#</th>
+                        <th scope="col">Name</th>
                         <th scope="col">Contacts</th>
                       </tr>
                     </thead>
@@ -70,6 +73,7 @@
                         {% for contact in health %}
                         <tr>
                           <th scope="row">#</th>
+                          <td>{{contact.name}}</td>
                           <td>{{contact.contact}}</td>
                         </tr> 
                         {% endfor %}

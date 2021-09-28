@@ -36,7 +36,7 @@ class Users(AbstractBaseUser):
     name = models.CharField( max_length=200)  
     username = models.CharField( max_length=200, blank=True)  
     email = models.CharField( max_length=100, unique=True)
-    about_me = models.IntegerField(null=True)
+    about_me = models.TextField(null=True)
     id_number = models.IntegerField(null=True)
     phone_number = models.CharField(max_length = 15,blank =True)
     neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE,null=True)
@@ -195,7 +195,7 @@ class Business(models.Model):
 
 class Health(models.Model):
     """HEALTH MODEL"""
-    name = models.CharField(max_length =200)
+    name = models.CharField(max_length =200, blank=True, default="health")
     contact = models.CharField(max_length =200)
     neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE)
 
@@ -222,9 +222,12 @@ class Health(models.Model):
     
  
 class Police(models.Model):
-    name = models.CharField(max_length =200)
+    name = models.CharField(max_length =200, blank=True)
     contact = models.CharField(max_length =200)
     neighborhood=models.ForeignKey("Neighborhood",on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name 
 
     class Meta:
         verbose_name_plural='Police'
