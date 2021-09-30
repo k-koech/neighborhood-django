@@ -84,7 +84,6 @@ def signIn(request):
         print(password)
         if user is not None:
             login(request,user )
-            messages.add_message(request, messages.SUCCESS, 'Logged in successfully')
             return redirect(index)
  
         else:
