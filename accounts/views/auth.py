@@ -97,8 +97,10 @@ def signIn(request):
 """ LOGOUT VIEW """
 def signOut(request):
     logout(request)
-    return redirect(index)
+    messages.add_message(request, messages.SUCCESS, 'Logout success')
+    return redirect(signIn)
 
+@login_required(login_url='/')
 def profile(request):   
     """PROFILE """
     if request.method=="POST":
@@ -150,6 +152,7 @@ def forgotpassword(request):
 
 
 """UPDATE PASSWORD"""
+@login_required(login_url='/')
 def updatepassword(request):
     password=request.POST.get('password')
     confirm_password=request.POST.get('confirm_password')
@@ -164,7 +167,7 @@ def updatepassword(request):
         messages.add_message(request, messages.SUCCESS, "Password updated successfully!!")
         return redirect(profile)
 
-
+@login_required(login_url='/')
 def update_neighborhood(request):
     """Neighborhood"""
     if request.method=="POST":
