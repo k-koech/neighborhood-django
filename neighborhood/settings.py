@@ -20,6 +20,15 @@ DEBUG = os.environ.get("DEBUG")
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS')
 
+# email configurations
+EMAIL_USE_SSL = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
 # auth model
 AUTH_USER_MODEL="accounts.users"
 
@@ -139,3 +148,4 @@ cloudinary.config(
 
 # Configure Django App for Heroku.
 django_on_heroku.settings(locals())
+

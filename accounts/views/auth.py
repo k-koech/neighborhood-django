@@ -1,3 +1,7 @@
+import random
+import string
+from django.core.mail import send_mail
+
 from django.http.response import JsonResponse
 from django.shortcuts import render, redirect
 from ..models import Business, Neighborhood, Users,Post
@@ -5,7 +9,6 @@ from django.contrib.auth import authenticate,login,logout,login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password
-
 
 # Create your views here.
 def index(request):
@@ -114,6 +117,52 @@ def profile(request):
     else:
         neighborhoods=Neighborhood.objects.all()
         return render(request, "profile.html",{"neighborhoods":neighborhoods})
+
+
+"""FORGOT PASSWORD"""
+def forgotpassword(request):
+    if request.method=="POST":
+        email= request.POST.get('email')
+        email_exist=Users.objects.filter(email=email).count()
+        
+        if email_exist<1:
+            messages.add_message(request, messages.ERROR, 'Email does not exist!')
+            return redirect(forgotpassword)
+
+        elif email_exist>0:
+            user=Users.objects.get(email=email)
+            # generate password
+            letters = string.ascii_lowercase
+            new_password=''.join(random.choice(letters) for i in range(10))
+            user.password=make_password(new_password)
+            user.save()
+            send_mail('New Password',
+                'Your new password is '+new_password+". Ensure that you update your password after login.",
+                'Neighborhood',
+                [email],
+                fail_silently=False,
+            )
+            messages.add_message(request, messages.SUCCESS, 'Email sent successfully!')
+            return redirect(forgotpassword)
+
+    else:
+        return render(request, "forgot_password.html")
+
+
+"""UPDATE PASSWORD"""
+def updatepassword(request):
+    password=request.POST.get('password')
+    confirm_password=request.POST.get('confirm_password')
+    if password!=confirm_password:
+        messages.add_message(request, messages.ERROR, "Password doesn't match!!")
+        return redirect(profile)
+       
+    else:
+        user=Users.objects.get(id=request.user.id)
+        user.password = password=make_password(password)
+        user.save()
+        messages.add_message(request, messages.SUCCESS, "Password updated successfully!!")
+        return redirect(profile)
 
 
 def update_neighborhood(request):
